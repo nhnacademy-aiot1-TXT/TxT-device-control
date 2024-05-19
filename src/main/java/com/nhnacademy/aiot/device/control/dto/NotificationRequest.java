@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NotificationRequest {
-    LocalDateTime time;
-    Long roleId;
-    String contents;
+    private LocalDateTime time;
+    private Long roleId;
+    private String contents;
 }
