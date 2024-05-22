@@ -74,6 +74,6 @@ public class MessageListener {
 
     private void sendMessage(String device, ValueMessage message) {
         String status = message.getValue() ? " 켜졌습니다." : " 꺼졌습니다.";
-        messageSender.send(device.substring(0, device.length() - 1) + " 봇", redisService.getPlaceName(message.getPlace()) + "의" + device + status);
+        messageSender.send(device.substring(0, device.length() - 1) + " 봇", redisService.getPlaceName(message.getPlace()) + "의 " + device + status);
     }
 }
