@@ -11,6 +11,8 @@ spring:
     port: 6379
     password: '*N2vya7H@muDTwdNMR!'
     database: 13
+    place:
+      database: 15
   profiles:
     active: prod
 management:
