@@ -99,7 +99,7 @@ public class MqttConfig {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 DeviceControlAck deviceControlAck = objectMapper.readValue((String) message.getPayload(), DeviceControlAck.class);
-                redisService.setDeviceStatus(DEVICE_KEY, deviceControlAck.getDevice().concat(":").concat(deviceControlAck.getPlace()), deviceControlAck.getValue());
+                redisService.setDeviceStatus(DEVICE_KEY, deviceControlAck.getPlace().concat("_").concat(deviceControlAck.getDevice()), deviceControlAck.getValue());
 
                 NotificationRequest notificationRequest = CommonUtil.createDeviceControlNotification(USER_ROLE_ID, redisService.getPlaceName(deviceControlAck.getPlace()), deviceControlAck.getDevice(), deviceControlAck.getValue());
                 deviceSettingAdapter.addNotification(notificationRequest);
