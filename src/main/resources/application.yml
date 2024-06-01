@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: device-control
+  rabbitmq:
+    host: 133.186.221.92
+    port: '5672'
+    username: user
+    password: user
+  redis:
+    host: 133.186.244.96
+    port: 6379
+    password: '*N2vya7H@muDTwdNMR!'
+    database: 13
+    place:
+      database: 15
+  profiles:
+    active: prod
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans, conditions, configprops, env, health, httpexchanges, info, loggers, metrics, mappings, threaddump, shutdown
+      base-path: /device-control-server/manage
+  endpoint:
+    health:
+      show-details: always
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+server:
+  port: 8500
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 5000
+        read-timeout: 30000
