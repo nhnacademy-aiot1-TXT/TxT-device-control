@@ -4,6 +4,12 @@ import com.nhn.dooray.client.DoorayHook;
 import com.nhn.dooray.client.DoorayHookSender;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 장치제어 메시지를 Dooray로 보내기 위한 클래스
+ *
+ * @author jongsikk
+ * @version 1.0.0
+ */
 @RequiredArgsConstructor
 public class DoorayMessageSender implements MessageSender {
     private final DoorayHookSender doorayHookSender;
