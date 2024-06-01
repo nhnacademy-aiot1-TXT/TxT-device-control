@@ -9,6 +9,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * RabbitMq 설정 클래스
+ *
+ * @author jongsikk
+ * @version 1.0.0
+ */
 @Configuration
 public class RabbitmqConfig {
     @Value("${spring.rabbitmq.host}")

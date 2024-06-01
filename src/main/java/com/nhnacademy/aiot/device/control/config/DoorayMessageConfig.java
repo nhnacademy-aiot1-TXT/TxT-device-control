@@ -16,6 +16,12 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 
+/**
+ * 장치 제어시 Dooray 메시지를 보내기위한 설정 클래스
+ *
+ * @author jongsikk
+ * @version 1.0.0
+ */
 @Slf4j
 @Configuration
 public class DoorayMessageConfig {

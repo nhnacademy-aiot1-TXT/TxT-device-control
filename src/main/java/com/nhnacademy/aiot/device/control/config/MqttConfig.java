@@ -27,6 +27,12 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.handler.annotation.Header;
 
+/**
+ * Mqtt Client 설정 클래스
+ *
+ * @author jongsikk
+ * @version 1.0.0
+ */
 @Configuration
 @RequiredArgsConstructor
 @IntegrationComponentScan
