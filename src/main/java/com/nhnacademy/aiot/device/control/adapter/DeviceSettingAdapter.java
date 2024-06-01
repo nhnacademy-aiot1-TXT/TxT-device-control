@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @FeignClient(value = "common-api", path = "/api/common")
 public interface DeviceSettingAdapter {
+    /**
+     * 알림을 생성하는 요청을 보내는 메서드
+     *
+     * @param notificationRequest
+     */
     @PostMapping("/notification")
     void addNotification(@RequestBody NotificationRequest notificationRequest);
 }
