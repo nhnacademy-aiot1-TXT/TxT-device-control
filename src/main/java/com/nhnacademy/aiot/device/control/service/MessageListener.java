@@ -76,7 +76,6 @@ public class MessageListener {
         NotificationRequest notificationRequest = CommonUtil.createIntrusionNotification(ADMIN_ROLE_ID, redisService.getPlaceName(message.getPlace()));
         deviceSettingAdapter.addNotification(notificationRequest);
 
-        String status = message.getValue() ? " 작동했습니다." : " 정지했습니다.";
-        messageSender.send("침입감지 봇", redisService.getPlaceName(message.getPlace()) + "의" + "침입감지가" + status);
+        messageSender.send("침입감지 봇", redisService.getPlaceName(message.getPlace()) + "에서 침입이 감지되었습니다.");
     }
 }

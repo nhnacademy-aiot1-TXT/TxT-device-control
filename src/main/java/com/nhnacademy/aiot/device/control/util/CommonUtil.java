@@ -42,8 +42,7 @@ public class CommonUtil {
      */
     public static NotificationRequest createIntrusionNotification(Long roleId, String place) {
         LocalDateTime time = LocalDateTime.now();
-        String contents = place + "에서 " +
-                "재실이 감지되었습니다.";
+        String contents = place + "에서 침입이 감지되었습니다.";
 
         return new NotificationRequest(time, roleId, contents);
     }
