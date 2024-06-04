@@ -117,11 +117,6 @@ public class MqttConfig {
                     deviceSettingAdapter.addNotification(notificationRequest);
 
                     sendMessage(deviceControlAck.getDevice() + "이", deviceControlAck);
-                } else {
-                    NotificationRequest notificationRequest = CommonUtil.createNotDeviceControlNotification(USER_ROLE_ID, redisService.getPlaceName(deviceControlAck.getPlace()), deviceControlAck.getDevice());
-                    deviceSettingAdapter.addNotification(notificationRequest);
-
-                    messageSender.send("장치 제어 봇", redisService.getPlaceName(deviceControlAck.getPlace()) + "의 " + deviceControlAck.getDevice() + "를 제어하지 못했습니다.");
                 }
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
