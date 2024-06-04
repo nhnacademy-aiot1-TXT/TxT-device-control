@@ -29,7 +29,6 @@ public class MessageListener {
     private static final String LIGHT = "light";
     private static final String LIGHT_QUEUE = "txt.light.queue";
     private static final String INTRUSION_QUEUE = "txt.intrusion.queue";
-    private static final String DEVICE_KEY = "device_power_status";
 
     private static final Long ADMIN_ROLE_ID = 1L;
     private final OutboundGateway outboundGateway;

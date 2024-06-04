@@ -126,7 +126,7 @@ public class MqttConfig {
     }
 
     private void sendMessage(String device, DeviceControlAck deviceControlAck) {
-        String status = deviceControlAck.getValue() ? " 켜졌습니다." : " 꺼졌습니다.";
+        String status = Boolean.TRUE.equals(deviceControlAck.getValue()) ? " 켜졌습니다." : " 꺼졌습니다.";
         messageSender.send("장치 제어 봇", redisService.getPlaceName(deviceControlAck.getPlace()) + "의 " + device + status);
     }
 }
