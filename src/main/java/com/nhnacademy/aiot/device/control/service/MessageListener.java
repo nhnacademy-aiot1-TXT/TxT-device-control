@@ -54,6 +54,9 @@ public class MessageListener {
 
                 if (!redisService.getDeviceStatus(DEVICE_KEY, place.concat("_").concat(AIR_CONDITIONER)).equals(value)) {
                     messageSender.send("장치 제어 봇", redisService.getPlaceName(message.getPlace()) + "의 " + AIR_CONDITIONER + "를 제어하지 못했습니다.");
+
+                    NotificationRequest notificationRequest = CommonUtil.createNotDeviceControlNotification(ADMIN_ROLE_ID, redisService.getPlaceName(place), AIR_CONDITIONER);
+                    deviceSettingAdapter.addNotification(notificationRequest);
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -78,6 +81,9 @@ public class MessageListener {
 
                 if (!redisService.getDeviceStatus(DEVICE_KEY, place.concat("_").concat(AIR_CLEANER)).equals(value)) {
                     messageSender.send("장치 제어 봇", redisService.getPlaceName(message.getPlace()) + "의 " + AIR_CLEANER + "를 제어하지 못했습니다.");
+
+                    NotificationRequest notificationRequest = CommonUtil.createNotDeviceControlNotification(ADMIN_ROLE_ID, redisService.getPlaceName(place), AIR_CLEANER);
+                    deviceSettingAdapter.addNotification(notificationRequest);
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -102,6 +108,9 @@ public class MessageListener {
 
                 if (!redisService.getDeviceStatus(DEVICE_KEY, place.concat("_").concat(LIGHT)).equals(value)) {
                     messageSender.send("장치 제어 봇", redisService.getPlaceName(message.getPlace()) + "의 " + LIGHT + "를 제어하지 못했습니다.");
+
+                    NotificationRequest notificationRequest = CommonUtil.createNotDeviceControlNotification(ADMIN_ROLE_ID, redisService.getPlaceName(place), LIGHT);
+                    deviceSettingAdapter.addNotification(notificationRequest);
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

@@ -34,6 +34,20 @@ public class CommonUtil {
     }
 
     /**
+     * 장치 제어 실패 알림 전송을 위한 DTO를 생성하는 메서드
+     *
+     * @param roleId
+     * @param place
+     * @param device
+     * @return notification request
+     */
+    public static NotificationRequest createNotDeviceControlNotification(Long roleId, String place, String device) {
+        LocalDateTime time = LocalDateTime.now();
+        String contents = place + "의 " + device + "를 제어하지 못했습니다.";
+        return new NotificationRequest(time, roleId, contents);
+    }
+
+    /**
      * 침입 감지시 알림 전송을 위한 DTO를 생성하는 클래스
      *
      * @param roleId
