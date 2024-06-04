@@ -45,23 +45,6 @@ public class MessageListener {
     @RabbitListener(queues = AIR_CONDITIONER_QUEUE)
     public void airConditionerProcess(ValueMessage message) {
         outboundGateway.sendToMqtt(message.getValue().toString(), CommonUtil.createDeviceControlTopic(AIR_CONDITIONER, message.getPlace()));
-
-        new Thread(() -> {
-            try {
-                String place = message.getPlace();
-                Boolean value = message.getValue();
-                Thread.sleep(10000);
-
-                if (!redisService.getDeviceStatus(DEVICE_KEY, place.concat("_").concat(AIR_CONDITIONER)).equals(value)) {
-                    messageSender.send("장치 제어 봇", redisService.getPlaceName(message.getPlace()) + "의 " + AIR_CONDITIONER + "를 제어하지 못했습니다.");
-
-                    NotificationRequest notificationRequest = CommonUtil.createNotDeviceControlNotification(ADMIN_ROLE_ID, redisService.getPlaceName(place), AIR_CONDITIONER);
-                    deviceSettingAdapter.addNotification(notificationRequest);
-                }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }).start();
     }
 
     /**
@@ -72,23 +55,6 @@ public class MessageListener {
     @RabbitListener(queues = AIR_CLEANER_QUEUE)
     public void airCleanerProcess(ValueMessage message) {
         outboundGateway.sendToMqtt(message.getValue().toString(), CommonUtil.createDeviceControlTopic(AIR_CLEANER, message.getPlace()));
-
-        new Thread(() -> {
-            try {
-                String place = message.getPlace();
-                Boolean value = message.getValue();
-                Thread.sleep(10000);
-
-                if (!redisService.getDeviceStatus(DEVICE_KEY, place.concat("_").concat(AIR_CLEANER)).equals(value)) {
-                    messageSender.send("장치 제어 봇", redisService.getPlaceName(message.getPlace()) + "의 " + AIR_CLEANER + "를 제어하지 못했습니다.");
-
-                    NotificationRequest notificationRequest = CommonUtil.createNotDeviceControlNotification(ADMIN_ROLE_ID, redisService.getPlaceName(place), AIR_CLEANER);
-                    deviceSettingAdapter.addNotification(notificationRequest);
-                }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }).start();
     }
 
     /**
@@ -99,23 +65,6 @@ public class MessageListener {
     @RabbitListener(queues = LIGHT_QUEUE)
     public void lightProcess(ValueMessage message) {
         outboundGateway.sendToMqtt(message.getValue().toString(), CommonUtil.createDeviceControlTopic(LIGHT, message.getPlace()));
-
-        new Thread(() -> {
-            try {
-                String place = message.getPlace();
-                Boolean value = message.getValue();
-                Thread.sleep(10000);
-
-                if (!redisService.getDeviceStatus(DEVICE_KEY, place.concat("_").concat(LIGHT)).equals(value)) {
-                    messageSender.send("장치 제어 봇", redisService.getPlaceName(message.getPlace()) + "의 " + LIGHT + "를 제어하지 못했습니다.");
-
-                    NotificationRequest notificationRequest = CommonUtil.createNotDeviceControlNotification(ADMIN_ROLE_ID, redisService.getPlaceName(place), LIGHT);
-                    deviceSettingAdapter.addNotification(notificationRequest);
-                }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }).start();
     }
 
     /**
