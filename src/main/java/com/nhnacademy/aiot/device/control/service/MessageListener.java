@@ -50,7 +50,7 @@ public class MessageListener {
             try {
                 String place = message.getPlace();
                 Boolean value = message.getValue();
-                Thread.sleep(3000);
+                Thread.sleep(10000);
 
                 if (!redisService.getDeviceStatus(DEVICE_KEY, place.concat("_").concat(AIR_CONDITIONER)).equals(value)) {
                     messageSender.send("장치 제어 봇", redisService.getPlaceName(message.getPlace()) + "의 " + AIR_CONDITIONER + "를 제어하지 못했습니다.");
@@ -74,7 +74,7 @@ public class MessageListener {
             try {
                 String place = message.getPlace();
                 Boolean value = message.getValue();
-                Thread.sleep(3000);
+                Thread.sleep(10000);
 
                 if (!redisService.getDeviceStatus(DEVICE_KEY, place.concat("_").concat(AIR_CLEANER)).equals(value)) {
                     messageSender.send("장치 제어 봇", redisService.getPlaceName(message.getPlace()) + "의 " + AIR_CLEANER + "를 제어하지 못했습니다.");
@@ -98,7 +98,7 @@ public class MessageListener {
             try {
                 String place = message.getPlace();
                 Boolean value = message.getValue();
-                Thread.sleep(3000);
+                Thread.sleep(10000);
 
                 if (!redisService.getDeviceStatus(DEVICE_KEY, place.concat("_").concat(LIGHT)).equals(value)) {
                     messageSender.send("장치 제어 봇", redisService.getPlaceName(message.getPlace()) + "의 " + LIGHT + "를 제어하지 못했습니다.");
