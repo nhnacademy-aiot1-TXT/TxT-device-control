@@ -27,6 +27,8 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.handler.annotation.Header;
 
+import java.util.Objects;
+
 /**
  * Mqtt Client 설정 클래스
  *
@@ -106,7 +108,9 @@ public class MqttConfig {
             try {
                 DeviceControlAck deviceControlAck = objectMapper.readValue((String) message.getPayload(), DeviceControlAck.class);
                 Boolean currentDeviceStatus = redisService.getDeviceStatus(DEVICE_KEY, deviceControlAck.getPlace().concat("_").concat(deviceControlAck.getDevice()));
-                if (!deviceControlAck.getValue().equals(currentDeviceStatus)) {
+                if (Objects.isNull(currentDeviceStatus)) {
+                    redisService.setDeviceStatus(DEVICE_KEY, deviceControlAck.getPlace().concat("_").concat(deviceControlAck.getDevice()), deviceControlAck.getValue());
+                } else if (!deviceControlAck.getValue().equals(currentDeviceStatus)) {
                     redisService.setDeviceStatus(DEVICE_KEY, deviceControlAck.getPlace().concat("_").concat(deviceControlAck.getDevice()), deviceControlAck.getValue());
 
                     NotificationRequest notificationRequest = CommonUtil.createDeviceControlNotification(USER_ROLE_ID, redisService.getPlaceName(deviceControlAck.getPlace()), deviceControlAck.getDevice(), deviceControlAck.getValue());
