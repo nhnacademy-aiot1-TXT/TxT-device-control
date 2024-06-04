@@ -72,7 +72,7 @@ public class MqttConfig {
                 new MqttPahoMessageHandler("txt", clientFactory);
 
         messageHandler.setAsync(true);
-        messageHandler.setDefaultQos(2);
+        messageHandler.setDefaultQos(1);
 
         return messageHandler;
     }
