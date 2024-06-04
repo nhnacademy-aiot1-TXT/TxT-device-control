@@ -27,6 +27,10 @@ public class RedisService {
         redisTemplate.opsForHash().put(key, hashKey, value);
     }
 
+    public Boolean getDeviceStatus(String key, String hashKey) {
+        return (Boolean) redisTemplate.opsForHash().get(key, hashKey);
+    }
+
     /**
      * place code로 redis에 저장된 place name값을 가져오는 메서드
      *

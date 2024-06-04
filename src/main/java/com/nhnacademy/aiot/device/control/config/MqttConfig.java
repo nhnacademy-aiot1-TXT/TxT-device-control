@@ -72,7 +72,7 @@ public class MqttConfig {
                 new MqttPahoMessageHandler("txt", clientFactory);
 
         messageHandler.setAsync(true);
-        messageHandler.setDefaultQos(2);
+        messageHandler.setDefaultQos(1);
 
         return messageHandler;
     }
@@ -105,12 +105,20 @@ public class MqttConfig {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 DeviceControlAck deviceControlAck = objectMapper.readValue((String) message.getPayload(), DeviceControlAck.class);
-                redisService.setDeviceStatus(DEVICE_KEY, deviceControlAck.getPlace().concat("_").concat(deviceControlAck.getDevice()), deviceControlAck.getValue());
+                Boolean currentDeviceStatus = redisService.getDeviceStatus(DEVICE_KEY, deviceControlAck.getPlace().concat("_").concat(deviceControlAck.getDevice()));
+                if (!deviceControlAck.getValue().equals(currentDeviceStatus)) {
+                    redisService.setDeviceStatus(DEVICE_KEY, deviceControlAck.getPlace().concat("_").concat(deviceControlAck.getDevice()), deviceControlAck.getValue());
 
-                NotificationRequest notificationRequest = CommonUtil.createDeviceControlNotification(USER_ROLE_ID, redisService.getPlaceName(deviceControlAck.getPlace()), deviceControlAck.getDevice(), deviceControlAck.getValue());
-                deviceSettingAdapter.addNotification(notificationRequest);
+                    NotificationRequest notificationRequest = CommonUtil.createDeviceControlNotification(USER_ROLE_ID, redisService.getPlaceName(deviceControlAck.getPlace()), deviceControlAck.getDevice(), deviceControlAck.getValue());
+                    deviceSettingAdapter.addNotification(notificationRequest);
 
-                sendMessage(deviceControlAck.getDevice() + "이", deviceControlAck);
+                    sendMessage(deviceControlAck.getDevice() + "이", deviceControlAck);
+                } else {
+                    NotificationRequest notificationRequest = CommonUtil.createNotDeviceControlNotification(USER_ROLE_ID, redisService.getPlaceName(deviceControlAck.getPlace()), deviceControlAck.getDevice());
+                    deviceSettingAdapter.addNotification(notificationRequest);
+
+                    messageSender.send("장치 제어 봇", redisService.getPlaceName(deviceControlAck.getPlace()) + "의 " + deviceControlAck.getDevice() + "를 제어하지 못했습니다.");
+                }
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
@@ -118,7 +126,7 @@ public class MqttConfig {
     }
 
     private void sendMessage(String device, DeviceControlAck deviceControlAck) {
-        String status = deviceControlAck.getValue() ? " 켜졌습니다." : " 꺼졌습니다.";
+        String status = Boolean.TRUE.equals(deviceControlAck.getValue()) ? " 켜졌습니다." : " 꺼졌습니다.";
         messageSender.send("장치 제어 봇", redisService.getPlaceName(deviceControlAck.getPlace()) + "의 " + device + status);
     }
 }
