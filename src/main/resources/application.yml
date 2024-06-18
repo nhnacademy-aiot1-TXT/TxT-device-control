@@ -7,12 +7,12 @@ spring:
     username: user
     password: user
   redis:
-    host: 133.186.244.96
-    port: 6379
+    host: 133.186.241.167
     password: '*N2vya7H@muDTwdNMR!'
-    database: 13
+    port: 6379
+    database: 263
     place:
-      database: 15
+      database: 265
   profiles:
     active: prod
 management:
