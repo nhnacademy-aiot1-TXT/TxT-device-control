@@ -2,10 +2,10 @@ spring:
   application:
     name: device-control
   rabbitmq:
-    host: 133.186.221.92
+    host: 180.210.82.110
     port: '5672'
-    username: user
-    password: user
+    username: guest
+    password: guest
   redis:
     host: 133.186.241.167
     password: '*N2vya7H@muDTwdNMR!'
